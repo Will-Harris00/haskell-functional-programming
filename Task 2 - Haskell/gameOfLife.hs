@@ -107,9 +107,11 @@ coordinate of the surrounding
 eight neighbouring cells -}
 neighbours :: Point -> [ Point ]
 neighbours (x, y)
-    {- the edges of the grid are wrapped to
-    increase the chances of cell survival -}
-    = map wrap [
+    {- the edges of the grid can either be 
+    wrapped or filtered to ensure cells do not
+    exceed the boundaries of the cell grid -}
+    = filter ignore [
+    -- = map wrap [
         -- north
         (x, y-1),
         -- north-east
@@ -126,6 +128,15 @@ neighbours (x, y)
         (x-1, y),
         -- north-west
         (x-1, y-1)]
+
+{- Instead of wrapping this alternative 
+function allows for point falling outside 
+the grid boundaries to be discarded -}
+ignore :: Point -> Bool
+ignore (x, y)
+    | x > (width - 1) || x < 0 = False
+    | y > (height - 1) || y < 0 = False
+    | otherwise = True
 
 {- ensures no cell can be places outside the
 border of the grid by wrapping the edges -}
