@@ -5,9 +5,9 @@ glider :: [ Point ]
 glider
     = [ (0, 2), (1, 3), (2, 1), (2, 2), (2, 3) ]
 
-createGrid :: Int -> Int -> String -> [ String ]
+createGrid :: Int -> Int -> [ String ]
 createGrid width height 
-    = replicate height . concat . replicate width
+    = replicate width $ (replicate height '.')
 
 positionHash :: Point -> [ String ] -> [ String ]
 positionHash (x, y) zs
@@ -33,7 +33,7 @@ visualisation :: Int -> Int -> [ [ Point ] ] -> [ [ String ] ]
 visualisation w h seq
     = map (plotPoints grid) seq
     where
-        grid = createGrid w h "."
+        grid = createGrid w h
 
 main :: IO()
 main
