@@ -23,6 +23,12 @@ neighbours (x, y)
 wrap :: Point -> Point
 wrap (x, y) = ((x `mod` 5), (y `mod` 5))
 
+liveCell :: [ [ String ] ] -> Point -> Bool
+liveCell gl (x, y)
+    | (((gl !! 0) !! y) !! x) == '#' = True
+    | otherwise = False
+
 main :: IO()
 main
-    = putStrLn (show (neighbours (4, 4)))
+    -- = putStrLn (show (neighbours (4, 4)))
+    = putStrLn (show (liveCell [[".....","..#..","#.#..",".##..","....."]] (0, 2)))
