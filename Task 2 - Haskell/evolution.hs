@@ -54,10 +54,15 @@ generations :: [ Point ] -> [ Point ]
 generations gl
     = persists gl ++ creation gl
 
+evolution :: [ Point ] -> [ [ Point ] ]
+evolution gl
+    = iterate generations gl
+
 main :: IO()
 main
     -- = putStrLn (show (neighbours (4, 4)))
     -- = putStrLn (show (liveNeighbours glider $ (2,2)))
     -- = putStrLn (show (creation glider))
     -- = putStrLn (show (persists glider))
-    = putStrLn (show (generations glider))
+    -- = putStrLn (show (generations glider))
+    = putStrLn (show (take 8 (evolution glider)))
