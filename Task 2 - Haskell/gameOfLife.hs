@@ -24,6 +24,7 @@ height = 5
 
 
 
+{-*** Question 2.1 ***-}
 {- takes a nested list of strings and 
 separates the individual elements by
 spliting each with newline characters 
@@ -40,6 +41,7 @@ strip xs
     = filter (not . (`elem` "\"")) xs
 
 
+{-*** Question 2.2 ***-}
 {- creates a visual representation 
 of the game given the glider pattern 
 and the width and height of the grid -}
@@ -86,6 +88,7 @@ changeChar s i
 
 
 
+{-*** Question 2.3 ***-}
 {- takes the inital glider pattern and 
 determines the future generations of cells 
 according to the rules of survival and growth -}
