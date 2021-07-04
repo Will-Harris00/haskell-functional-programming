@@ -11,23 +11,15 @@ createGrid width height
 
 positionHash :: Point -> [ String ] -> [ String ]
 positionHash (x, y) zs
-    = changeCharAt zs y coords
-    where
-        coords = changeCharAt (zs!!y) x '#'
-
-changeCharAt :: [a] -> Int -> a -> [a]
-changeCharAt xs i s
-    = h ++ [s] ++ (tail t)
-    where
-        (h, t) = splitAt i xs
+    = zs
 
 plotPoints :: [ String ] -> [ Point ] -> [ String ]
 plotPoints a []
     = a
-plotPoints grid (x:xs)
+plotPoints gr (x:xs)
     = plotPoints replace xs
     where 
-        replace = positionHash x grid
+        replace = positionHash x gr
 
 visualisation :: Int -> Int -> [ [ Point ] ] -> [ [ String ] ]
 visualisation w h seq
