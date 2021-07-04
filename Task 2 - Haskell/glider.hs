@@ -9,12 +9,16 @@ grid :: Int -> Int -> [ [ String ] ]
 grid x y
     = [replicate y $ (replicate x '.')]
 
-visualisation :: Int -> Int -> [ [ Point ] ] -> [ [ String ] ]
+visualisation :: Int -> Int -> [ [ Point ] ] -> [ String ]
 visualisation x y g
     = plotpoints (grid x y) g
 
-plotpoints :: [ [ String ] ] -> [ [ Point ] ] -> [ [ String ] ]
+plotpoints :: [ [ String ] ] -> [ [ Point ] ] -> [ String ]
 plotpoints g p
+    = magic (concat g) (concat p)
+
+magic :: [ String ] -> [ Point ] -> [ String ]
+magic g p 
     = g
 
 split :: Point -> Int
@@ -38,14 +42,8 @@ selectStr p g
 changeChar :: String -> Int -> String
 changeChar s i
     = (take i s) ++ "#" ++ (drop i s)
-
-left :: (a,b) -> a
-left (x,_) = x
-
-right :: (a,b) -> b
-right (_,y) = y
 -}
 
 main :: IO()
 main
-    = putStrLn (show (split (3,4)))
+    = putStrLn (show (visualisation 5 5 [ glider ]))
