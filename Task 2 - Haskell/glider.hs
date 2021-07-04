@@ -9,17 +9,17 @@ grid :: Int -> Int -> [ [ String ] ]
 grid x y
     = [replicate y $ (replicate x '.')]
 
-visualisation :: Int -> Int -> [ [ Point ] ] -> [ String ]
+visualisation :: Int -> Int -> [ [ Point ] ] -> [ Int ]
 visualisation x y g
     = plotpoints (grid x y) g
 
-plotpoints :: [ [ String ] ] -> [ [ Point ] ] -> [ String ]
+plotpoints :: [ [ String ] ] -> [ [ Point ] ] -> [ Int ]
 plotpoints g p
     = magic (concat g) (concat p)
 
-magic :: [ String ] -> [ Point ] -> [ String ]
-magic g p 
-    = g
+magic :: [ String ] -> [ Point ] -> [ Int ]
+magic g (p:ps) 
+    = split p : magic g ps
 
 split :: Point -> Int
 split (a,b)
