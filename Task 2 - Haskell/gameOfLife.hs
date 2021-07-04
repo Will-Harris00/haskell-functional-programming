@@ -7,6 +7,11 @@ glider :: [ Point ]
 glider
     = [ (0, 2), (1, 3), (2, 1), (2, 2), (2, 3) ]
 
+width :: Int
+width = 5
+
+height :: Int
+height = 5
 
 
 
@@ -79,7 +84,7 @@ neighbours (x, y)
                 (x-1, y-1)]
 
 wrap :: Point -> Point
-wrap (x, y) = ((x `mod` 5), (y `mod` 5))
+wrap (x, y) = ((x `mod` width), (y `mod` height))
 
 persists :: [ Point ] -> [ Point ]
 persists gl
@@ -87,8 +92,8 @@ persists gl
 
 creation :: [ Point ] -> [ Point ]
 creation gl
-    = [(x,y) | x <- [0..4],
-               y <- [0..4],
+    = [(x,y) | x <- [0..(width-1)],
+               y <- [0..(height-1)],
                isDead gl (x,y),
                liveNeighbours gl (x,y) == 3]
 
@@ -113,5 +118,5 @@ main
     -- = putStrLn (show (persists glider))
     -- = putStrLn (show (generations glider))
     -- = putStrLn (show (take 8 (evolution glider)))
-    -- = putStrLn (show (take 8 (visualisation 5 5 (evolution glider))))
-    = putStrLn (pretty (take 8 (visualisation 5 5 (evolution glider))))
+    -- = putStrLn (show (take 8 (visualisation width height (evolution glider))))
+    = putStrLn (pretty (take 8 (visualisation width height (evolution glider))))
