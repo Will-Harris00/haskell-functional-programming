@@ -1,3 +1,4 @@
+{-*** Question 1.1 ***-}
 {- rule one takes a six digit tuple and determines
 whether all the digits it contains are unique -}
 rule1 :: (Int,Int,Int,Int,Int,Int) -> Bool
@@ -9,6 +10,7 @@ rule1 (t1,t2,t3,t4,t5,t6)
     && t5 /= t6
 
 
+{-*** Question 1.2 ***-}
 {- rule two determines if alternate digits
 are odd and even or even and odd -}
 rule2 :: (Int,Int,Int,Int,Int,Int) -> Bool
@@ -20,11 +22,11 @@ rule2 (t1,t2,t3,t4,t5,t6)
 larger six digit tuple to check even/odd pairing -}
 isAlternate :: (Int, Int) -> Bool
 isAlternate (n, m)
-    | even n && odd m = True
-    | odd n && even m = True
+    | even n && odd m || odd n && even m = True
     | otherwise = False
 
 
+{-*** Question 1.3 ***-}
 {- rule three determines if alternate
 digits differ by more than two -}
 rule3 :: (Int,Int,Int,Int,Int,Int) -> Bool
@@ -40,6 +42,7 @@ isDiffTwo (n, m)
     | otherwise = False
 
 
+{-*** Question 1.4 ***-}
 {- rule four determines if the first and
 middle pairs of digits form numbers that
 are both multiples of the last -}
@@ -62,6 +65,7 @@ isDividend (x, y)
     | otherwise = False
 
 
+{-*** Question 1.5 ***-}
 {- generates a list containing ever possible permutation
 of six digit tuples used to find all the solutions -}
 possibles :: [(Int, Int, Int, Int, Int, Int)]
@@ -76,6 +80,7 @@ possibles
     return (u, v, w, x, y, z)
 
 
+{-*** Question 1.6 ***-}
 {- determines is any given six digit tuple is a valid
 solution to the problem as it follows the four rules -}
 isSolution :: (Int, Int, Int, Int, Int, Int) -> Bool
