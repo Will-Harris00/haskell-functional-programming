@@ -20,21 +20,9 @@ rule2 (t1,t2,t3,t4,t5,t6)
 larger six digit tuple to check even/odd pairing -}
 isAlternate :: (Int, Int) -> Bool
 isAlternate (n, m)
-    | isEven n && isOdd m = True
-    | isOdd n && isEven m = True
+    | even n && odd m = True
+    | odd n && even m = True
     | otherwise = False
-
-{- takes a number and returns true 
-if even and false otherwise -}
-isEven :: Int -> Bool
-isEven n
-    = n `mod` 2 == 0
-
-{- takes a number and returns true 
-if odd and false otherwise -}
-isOdd :: Int -> Bool
-isOdd m
-    = m `mod` 2 == 1
 
 
 {- rule three determines if alternate
@@ -48,7 +36,7 @@ rule3 (t1,t2,t3,t4,t5,t6)
 if the difference is greater than two -}
 isDiffTwo :: (Int, Int) -> Bool
 isDiffTwo (n, m)
-    | n - m < -2 || n - m > 2 = True
+    | abs (n - m) > 2 = True
     | otherwise = False
 
 
