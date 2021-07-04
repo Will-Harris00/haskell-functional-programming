@@ -5,31 +5,60 @@ glider :: [ Point ]
 glider
     = [ (0, 2), (1, 3), (2, 1), (2, 2), (2, 3) ]
 
+createGrid :: Int -> Int -> String -> [ String ]
+createGrid width height 
+    = replicate height . concat . replicate width
+
+positionHash :: Point -> [ String ] -> [ String ]
+positionHash (x, y) zs
+    = changeCharAt zs y coords
+    where
+        coords = changeCharAt (zs!!y) x '#'
+
+changeCharAt :: [a] -> Int -> a -> [a]
+changeCharAt xs i s
+    = h ++ [s] ++ (tail t)
+    where
+        (h, t) = splitAt i xs
+
+plotPoints :: [ String ] -> [ Point ] -> [ String ]
+plotPoints a []
+    = a
+plotPoints grid (x:xs)
+    = plotPoints replace xs
+    where 
+        replace = positionHash x grid
+
+visualisation :: Int -> Int -> [ [ Point ] ] -> [ [ String ] ]
+visualisation w h seq
+    = map (plotPoints grid) seq
+    where
+        grid = createGrid w h "."
+
+main :: IO()
+main
+    = putStrLn (show (visualisation 5 5 [glider]))
+
+{-
 grid :: Int -> Int -> [ [ String ] ]
 grid x y
     = [replicate y $ (replicate x '.')]
 
-visualisation :: Int -> Int -> [ [ Point ] ] -> [ Int ]
+visualisation :: Int -> Int -> [ [ Point ] ] -> [ String ]
 visualisation x y g
     = plotpoints (grid x y) g
 
-plotpoints :: [ [ String ] ] -> [ [ Point ] ] -> [ Int ]
+plotpoints :: [ [ String ] ] -> [ [ Point ] ] -> [ String ]
 plotpoints g p
     = magic (concat g) (concat p)
 
-magic :: [ String ] -> [ Point ] -> [ Int ]
-magic g (p:ps) 
-    = split p : magic g ps
+magic :: [ String ] -> [ Point ] -> [ String ]
+magic g p 
+    = g
 
 split :: Point -> Int
 split (a,b)
     = a + b
-
-{-
-isAlive :: [ [ String ] ] -> Point -> Bool
-isAlive gr (x, y)
-    | (((gr !! 0) !! y) !! x) == '#' = True
-    | otherwise = False
 
 separateTuple :: [ [ Point ] ] -> Point
 separateTuple (xs:xss)
@@ -43,7 +72,3 @@ changeChar :: String -> Int -> String
 changeChar s i
     = (take i s) ++ "#" ++ (drop i s)
 -}
-
-main :: IO()
-main
-    = putStrLn (show (visualisation 5 5 [ glider ]))
