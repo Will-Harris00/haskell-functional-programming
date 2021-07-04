@@ -5,7 +5,7 @@ rule3 (t1,t2,t3,t4,t5,t6)
 
 isDiffTwo :: (Int, Int) -> Bool
 isDiffTwo (n, m)
-    | n - m < -2 || n - m > 2 = True
+    | abs (n - m) > 2 = True
     | otherwise = False
 
 main :: IO()
