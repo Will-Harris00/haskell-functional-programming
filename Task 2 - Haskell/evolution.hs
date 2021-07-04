@@ -50,9 +50,14 @@ isDead :: [ Point ] -> Point -> Bool
 isDead gl p
     = not (isAlive gl p)
 
+generations :: [ Point ] -> [ Point ]
+generations gl
+    = persists gl ++ creation gl
+
 main :: IO()
 main
     -- = putStrLn (show (neighbours (4, 4)))
     -- = putStrLn (show (liveNeighbours glider $ (2,2)))
     -- = putStrLn (show (creation glider))
-    = putStrLn (show (persists glider))
+    -- = putStrLn (show (persists glider))
+    = putStrLn (show (generations glider))
