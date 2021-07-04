@@ -5,17 +5,9 @@ rule2 (t1,t2,t3,t4,t5,t6)
 
 isAlternate :: (Int, Int) -> Bool
 isAlternate (n, m)
-    | isEven n && isOdd m = True
-    | isOdd n && isEven m = True
+    | even n && odd m = True
+    | odd n && even m = True
     | otherwise = False
-
-isEven :: Int -> Bool
-isEven n
-    = n `mod` 2 == 0
-
-isOdd :: Int -> Bool
-isOdd m
-    = m `mod` 2 == 1
 
 main :: IO()
 main
