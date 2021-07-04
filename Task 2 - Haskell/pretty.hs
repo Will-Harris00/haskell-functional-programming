@@ -1,8 +1,14 @@
 import Data.List ( intercalate, intersperse )
 
-pretty :: Show a => [[[a]]] -> [ String ]
+pretty :: Show a => [[[a]]] -> String
 pretty xs
-    = intersperse "\n" . map show $ xs
+    -- = intersperse "\n" . map show $ xs
+    = alt . intercalate "\n" . map show $ xs
+
+
+alt :: Show a => [a] -> String
+alt s
+    = strip . intercalate "\n" . map show $ s
 
 prettyalt :: Show a => [[[a]]] -> String
 prettyalt xs
@@ -10,7 +16,7 @@ prettyalt xs
     -- = intercalate "\n" . map show $ concat xs
     -- = (++ "\n") . strip . intercalate "\n" . map show $ xs
     -- = (++ "\n") . strip . intercalate "\n" . map show $ concat xs
-    = intercalate "\n" . map show $ (intercalate "\n" . map show $ xs)
+    = (intercalate "\n" . map show $ xs)
 
 strip :: String -> String
 strip xs
@@ -18,13 +24,13 @@ strip xs
 
 main :: IO()
 main
-    = putStrLn (show (prettyalt ([ [".....","..#..","#.#..",".##..","....."],
-                                   [".....",".#...","..##.",".##..","....."],
-                                   [".....","..#..","...#.",".###.","....."],
-                                   [".....",".....",".#.#.","..##.","..#.."],
-                                   [".....",".....","...#.",".#.#.","..##."],
-                                   [".....",".....","..#..","...##","..##."],
-                                   [".....",".....","...#.","....#","..###"] ])))
+    = putStrLn (show (pretty ([ [".....","..#..","#.#..",".##..","....."],
+                                [".....",".#...","..##.",".##..","....."],
+                                [".....","..#..","...#.",".###.","....."],
+                                [".....",".....",".#.#.","..##.","..#.."],
+                                [".....",".....","...#.",".#.#.","..##."],
+                                [".....",".....","..#..","...##","..##."],
+                                [".....",".....","...#.","....#","..###"] ])))
     {-= putStrLn (show (pretty ([ [ [ 'a','b' ], [ 'c','d' ] ],
                                   [ [ 'e','f' ], [ 'g','h' ] ],
                                   [ [ 'i','j' ], [ 'k','l' ] ] ])))
