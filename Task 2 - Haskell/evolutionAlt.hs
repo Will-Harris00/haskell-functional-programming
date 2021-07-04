@@ -31,6 +31,12 @@ neighbs x y =
         y <- [y, y-1, y+1]
         return (x,y)
 
+getNonNegatives :: [(Int, Int)] -> [(Int, Int)]
+getNonNegatives lst
+    = filter ((>= 0) . snd) filtrd
+    where
+        filtrd = filter ((>= 0) . fst) lst
+
 wrap :: Point -> Point
 wrap (x, y) = ((x `mod` 5), (y `mod` 5))
 
@@ -73,4 +79,5 @@ main
     -- = putStrLn (show (persists glider))
     -- = putStrLn (show (generations glider))
     -- = putStrLn (show (take 8 (evolution glider)))
-    = putStrLn (show (neighbs 4 4))
+    -- = putStrLn (show (neighbs 4 4))
+    = putStrLn (show (getNonNegatives (tail (neighbs 0 0))))
