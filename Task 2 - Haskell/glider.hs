@@ -14,7 +14,7 @@ grid x y
 visualisation :: Int -> Int -> [ Point ] -> [ [ String ] ]
 visualisation x y g
     = plotpoints $ grid x y
-    
+
 plotpoints :: [ [ String ] ] -> [ Point ] -> [ [ String ] ]
 plotpoints g (t:ts)
     = changeChar g t : plotpoints ts
