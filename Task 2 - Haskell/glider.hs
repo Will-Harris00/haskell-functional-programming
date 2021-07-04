@@ -11,7 +11,7 @@ createGrid width height
 
 positionHash :: Point -> [ String ] -> [ String ]
 positionHash (x, y) zs
-    = zs
+    = take y zs ++ [zs !! y] ++ drop (y + 1) zs
 
 plotPoints :: [ String ] -> [ Point ] -> [ String ]
 plotPoints a []
