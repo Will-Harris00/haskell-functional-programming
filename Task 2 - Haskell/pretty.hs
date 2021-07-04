@@ -1,13 +1,17 @@
 import Data.List ( intercalate, intersperse )
 
-pretty :: [[[Char]]] -> String
-pretty xs
-    -- = intersperse "\n" . map show $ xs
-    = magic $ intercalate ["\n"] xs
 
-magic :: [[Char]] -> String
-magic s
-    = concat $ intercalate ["\n"] [s]
+pretty :: [ [ [ Char ] ] ] -> [ [ Char ] ]
+pretty []  = []
+pretty ([] :xss) 
+    = pretty xss
+pretty ((x:xs):xss)
+    -- = intersperse "\n" . map show $ xs
+    = [increments xs]
+
+increments :: [[Char]] -> [Char]
+increments xs
+    = intercalate "\n" xs
 
 alt :: Show a => [a] -> String
 alt s
