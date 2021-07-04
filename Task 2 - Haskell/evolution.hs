@@ -1,6 +1,10 @@
 type Point
     = (Int, Int)
 
+glider :: [ Point ]
+glider
+    = [ (0, 2), (1, 3), (2, 1), (2, 2), (2, 3) ]
+
 neighbours :: Point -> [ Point ]
 neighbours (x, y)
     = map wrap [-- north
@@ -28,7 +32,16 @@ liveCell gl (x, y)
     | (((gl !! 0) !! y) !! x) == '#' = True
     | otherwise = False
 
+liveNeighbours :: [ Point ] -> Int
+liveNeighbours gl
+    = length . filter (isAlive $ gl) $ neighbours (2,2)
+
+isAlive :: [ Point ] -> Point -> Bool
+isAlive gl p
+    = elem p gl
+
 main :: IO()
 main
     -- = putStrLn (show (neighbours (4, 4)))
-    = putStrLn (show (liveCell [[".....","..#..","#.#..",".##..","....."]] (0, 2)))
+    -- = putStrLn (show (liveCell [[".....","..#..","#.#..",".##..","....."]] (0, 2)))
+    = putStrLn (show (liveNeighbours $ glider))
