@@ -7,7 +7,7 @@ pretty xs
 
 magic :: [[Char]] -> String
 magic s
-    = intercalate "\n" s
+    = concat $ intercalate ["\n"] [s]
 
 alt :: Show a => [a] -> String
 alt s
