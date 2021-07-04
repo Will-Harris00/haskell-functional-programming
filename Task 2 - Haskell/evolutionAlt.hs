@@ -24,18 +24,22 @@ neighbours (x, y)
                 -- north-west
                 (x-1, y-1)]
 
-neighbs :: Int -> Int -> [(Int, Int)]
-neighbs x y =
-    do
-        x <- [x, x-1, x+1]
-        y <- [y, y-1, y+1]
-        return (x,y)
+neighbs :: Point -> [ Point ]
+neighbs (x, y)
+    = (getNonNegatives (tail (getAdjacent x y)))
 
 getNonNegatives :: [(Int, Int)] -> [(Int, Int)]
 getNonNegatives lst
     = filter ((>= 0) . snd) filtrd
     where
         filtrd = filter ((>= 0) . fst) lst
+
+getAdjacent :: Int -> Int -> [(Int, Int)]
+getAdjacent x y
+    = do
+        x <- [x, x-1, x+1]
+        y <- [y, y-1, y+1]
+        return (x,y)
 
 wrap :: Point -> Point
 wrap (x, y) = ((x `mod` 5), (y `mod` 5))
@@ -80,4 +84,4 @@ main
     -- = putStrLn (show (generations glider))
     -- = putStrLn (show (take 8 (evolution glider)))
     -- = putStrLn (show (neighbs 4 4))
-    = putStrLn (show (getNonNegatives (tail (neighbs 0 0))))
+    = putStrLn (show (getNonNegatives (tail (neighbs (0, 0)))))
