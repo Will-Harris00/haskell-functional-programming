@@ -32,9 +32,9 @@ liveCell gl (x, y)
     | (((gl !! 0) !! y) !! x) == '#' = True
     | otherwise = False
 
-liveNeighbours :: [ Point ] -> Int
-liveNeighbours gl
-    = length . filter (isAlive $ gl) $ neighbours (2,2)
+liveNeighbours :: [ Point ] -> Point -> Int
+liveNeighbours gl p
+    = length . filter (isAlive $ gl) $ neighbours p
 
 isAlive :: [ Point ] -> Point -> Bool
 isAlive gl p
@@ -44,4 +44,4 @@ main :: IO()
 main
     -- = putStrLn (show (neighbours (4, 4)))
     -- = putStrLn (show (liveCell [[".....","..#..","#.#..",".##..","....."]] (0, 2)))
-    = putStrLn (show (liveNeighbours $ glider))
+    = putStrLn (show (liveNeighbours glider $ (2,2)))
