@@ -1,9 +1,9 @@
 import Data.List ( intercalate, intersperse )
 
-pretty :: Show a => [a] -> [[Char]]
+pretty :: [[[Char]]] -> [[Char]]
 pretty xs
     -- = intersperse "\n" . map show $ xs
-    = intersperse "\n" . map show $ xs
+    = intercalate ["\n"] xs
 
 
 alt :: Show a => [a] -> String
