@@ -15,11 +15,25 @@ visualisation x y g
 
 plotpoints :: [ [ String ] ] -> [ [ Point ] ] -> [ [ String ] ]
 plotpoints g p
-    = selectStr g p
+    = g
 
-selectStr :: [ [ String ] ] -> [ [ Point ] ] -> String
-selectStr g t
-    = changeChar (g !! left p) (right p)
+split :: Point -> Int
+split (a,b)
+    = a + b
+
+{-
+isAlive :: [ [ String ] ] -> Point -> Bool
+isAlive gr (x, y)
+    | (((gr !! 0) !! y) !! x) == '#' = True
+    | otherwise = False
+
+separateTuple :: [ [ Point ] ] -> Point
+separateTuple (xs:xss)
+    = split xs : increments xss
+
+selectStr :: [ Point ] -> [ String ] -> String
+selectStr p g
+    = changeChar (g !! left t) (right t)
 
 changeChar :: String -> Int -> String
 changeChar s i
@@ -30,7 +44,8 @@ left (x,_) = x
 
 right :: (a,b) -> b
 right (_,y) = y
+-}
 
 main :: IO()
 main
-    = putStrLn (show (visualisation 5 5 [ glider ]))
+    = putStrLn (show (split (3,4)))
