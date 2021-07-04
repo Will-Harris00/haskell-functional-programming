@@ -27,6 +27,10 @@ neighbours (x, y)
 wrap :: Point -> Point
 wrap (x, y) = ((x `mod` 5), (y `mod` 5))
 
+persists :: [ Point ] -> [ Point ]
+persists gl
+    = [w | w <- gl, elem (liveNeighbours gl w) [2,3]]
+
 creation :: [ Point ] -> [ Point ]
 creation gl
     = [(x,y) | x <- [0..4],
@@ -50,4 +54,5 @@ main :: IO()
 main
     -- = putStrLn (show (neighbours (4, 4)))
     -- = putStrLn (show (liveNeighbours glider $ (2,2)))
-    = putStrLn (show (creation glider))
+    -- = putStrLn (show (creation glider))
+    = putStrLn (show (persists glider))
