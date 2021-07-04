@@ -1,8 +1,8 @@
 import Data.List ( intercalate, intersperse )
 
-iterateList :: Foldable t => t [[Char]] -> [Char]
-iterateList xs
-    = intercalate "\n" $ concat xs
+iterateList :: Foldable t => t [[Char]] -> [[Char]]
+iterateList (t:ts)
+    = intersperse "\n" t
 
 pretty :: [[a]] -> [[a]]
 pretty []  = []
