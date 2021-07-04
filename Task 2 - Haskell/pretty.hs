@@ -1,4 +1,4 @@
-import Data.List ( intersperse, intercalate )
+import Data.List ( intercalate )
 
 prettyalt :: Show a => [[[a]]] -> String
 prettyalt xs
@@ -16,11 +16,25 @@ firststepalt :: [[a]] -> [a]
 firststepalt xs
     = foldr (++) [] xs
 
+pretty :: Show a => [[[a]]] -> String
+pretty xs
+    = strip . (++ "\n") . intercalate "\n" . map show $ concat xs
+    -- = (++ "\n") . strip . intercalate "\n" . map show $ concat xs
+    
+
+strip :: String -> String
+strip xs
+    = filter (not . (`elem` "\"")) xs
+
 main :: IO()
 main
-    = putStrLn (show (firststepalt ([ [ [ 'a','b' ], [ 'c','d' ] ],
-                                      [ [ 'e','f' ], [ 'g','h' ] ],
-                                      [ [ 'i','j' ], [ 'k','l' ] ] ])))
+    = putStrLn (show (pretty ([ [ [ 'a','b' ], [ 'c','d' ] ],
+                                [ [ 'e','f' ], [ 'g','h' ] ],
+                                [ [ 'i','j' ], [ 'k','l' ] ] ])))
+    {-= putStrLn (show (firststepalt ([ [ [ 'a','b' ], [ 'c','d' ] ],
+                                        [ [ 'e','f' ], [ 'g','h' ] ],
+                                        [ [ 'i','j' ], [ 'k','l' ] ] ])))
+    -}
     {-= putStrLn (show (firststep ([ [ [ 'a','b' ], [ 'c','d' ] ],
                                      [ [ 'e','f' ], [ 'g','h' ] ],
                                      [ [ 'i','j' ], [ 'k','l' ] ] ])))
@@ -28,8 +42,4 @@ main
     {-= putStrLn (show (midstep ([ [ [ 'a','b' ], [ 'c','d' ] ],
                                    [ [ 'e','f' ], [ 'g','h' ] ],
                                    [ [ 'i','j' ], [ 'k','l' ] ] ])))
-    -}
-    {-= putStrLn (show (pretty ([ [ [ 'a','b' ], [ 'c','d' ] ],
-                                  [ [ 'e','f' ], [ 'g','h' ] ],
-                                  [ [ 'i','j' ], [ 'k','l' ] ] ])))
     -}
