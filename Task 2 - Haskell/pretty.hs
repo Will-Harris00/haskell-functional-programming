@@ -1,10 +1,13 @@
 import Data.List ( intercalate, intersperse )
 
-pretty :: [[[Char]]] -> [[Char]]
+pretty :: [[[Char]]] -> String
 pretty xs
     -- = intersperse "\n" . map show $ xs
-    = intercalate ["\n"] xs
+    = magic $ intercalate ["\n"] xs
 
+magic :: [[Char]] -> String
+magic s
+    = intercalate "\n" s
 
 alt :: Show a => [a] -> String
 alt s
