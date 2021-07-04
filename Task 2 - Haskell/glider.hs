@@ -20,9 +20,9 @@ plotpoints g (t:ts)
     = changeChar g t : plotpoints ts
 -}
 
-changeChar :: [a] -> (Int, Int) -> a
+changeChar :: [[a]] -> (Int, Int) -> a
 changeChar g t
-    = g!!left t
+    = (g!!left t)!!right t
 
 left :: (a,b) -> a
 left (x,_) = x
@@ -34,4 +34,4 @@ right (_,y) = y
 
 main :: IO()
 main
-    = putStrLn (show (changeChar [["hello"]] (0,3)))
+    = putStrLn (show (changeChar [["hello"]] (0,0)))
