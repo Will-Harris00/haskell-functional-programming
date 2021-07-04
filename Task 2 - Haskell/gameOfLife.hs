@@ -107,22 +107,22 @@ neighbours (x, y)
     {- the edges of the grid are wrapped to
     increase the chances of cell survival -}
     = map wrap [
-                -- north
-                (x, y-1),
-                -- north-east
-                (x+1,y-1),
-                -- east
-                (x+1, y),
-                -- south-east
-                (x+1, y+1),
-                -- south
-                (x, y+1),
-                -- south-west
-                (x-1, y+1),
-                -- west
-                (x-1, y),
-                -- north-west
-                (x-1, y-1)]
+        -- north
+        (x, y-1),
+        -- north-east
+        (x+1,y-1),
+        -- east
+        (x+1, y),
+        -- south-east
+        (x+1, y+1),
+        -- south
+        (x, y+1),
+        -- south-west
+        (x-1, y+1),
+        -- west
+        (x-1, y),
+        -- north-west
+        (x-1, y-1)]
 
 {- ensures no cell can be places outside the
 border of the grid by wrapping the edges -}
@@ -137,15 +137,49 @@ persists :: [ Point ] -> [ Point ]
 persists gl
     = [w | w <- gl, elem (liveNeighbours gl w) [2,3]]
 
+
+
+
+{- This is an alternative method for determining which cells
+are created, I have left it in as it is more readable thought
+also less efficient as requires every point to be checked -}
+
 {- determines for every point those
 that have exactly three live neighbours
 and so are created in the next generation -}
+
+{-
 creation :: [ Point ] -> [ Point ]
 creation gl
     = [(x,y) | x <- [0..(width-1)],
                y <- [0..(height-1)],
                isDead gl (x,y),
                liveNeighbours gl (x,y) == 3]
+-}
+
+
+
+
+{- This improved method considers only those points that have
+alive neighbouring cells, so would be more efficient for larger
+grids over many generation, though it has slightly poorer readablity -}
+
+{- filters points with live neighbours to determine
+those that have exactly three live neighbours
+and so are created in the next generation -}
+creation :: [ Point ] -> [ Point ]
+creation gl
+    = [w | w <- rmduplicates(concat (map neighbours gl)),
+            isDead gl w,
+            liveNeighbours gl w == 3]
+
+{- supplementary function to remove duplicate points
+from the list containing points with live neighbours -}
+rmduplicates :: Eq a => [a] -> [a]
+rmduplicates [] 
+    = []
+rmduplicates (x:xs)
+    = x : rmduplicates (filter (/= x) xs)
 
 {- calculates for a given point the number
 of neighbouring cells which are alive -}
