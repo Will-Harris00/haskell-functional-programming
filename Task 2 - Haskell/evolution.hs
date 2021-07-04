@@ -27,10 +27,12 @@ neighbours (x, y)
 wrap :: Point -> Point
 wrap (x, y) = ((x `mod` 5), (y `mod` 5))
 
-liveCell :: [ [ String ] ] -> Point -> Bool
-liveCell gl (x, y)
-    | (((gl !! 0) !! y) !! x) == '#' = True
-    | otherwise = False
+creation :: [ Point ] -> [ Point ]
+creation gl
+    = [(x,y) | x <- [0..4],
+               y <- [0..4],
+               isDead gl (x,y),
+               liveNeighbours gl (x,y) == 3]
 
 liveNeighbours :: [ Point ] -> Point -> Int
 liveNeighbours gl p
@@ -40,8 +42,12 @@ isAlive :: [ Point ] -> Point -> Bool
 isAlive gl p
     = elem p gl
 
+isDead :: [ Point ] -> Point -> Bool
+isDead gl p
+    = not (isAlive gl p)
+
 main :: IO()
 main
     -- = putStrLn (show (neighbours (4, 4)))
-    -- = putStrLn (show (liveCell [[".....","..#..","#.#..",".##..","....."]] (0, 2)))
-    = putStrLn (show (liveNeighbours glider $ (2,2)))
+    -- = putStrLn (show (liveNeighbours glider $ (2,2)))
+    = putStrLn (show (creation glider))
