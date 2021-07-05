@@ -6,9 +6,10 @@ prnt :: [Int]
 prnt
     = [1..999999]
 
-padOut :: Int -> String
-padOut x
-    = replicate (6 - length (show x)) '0' ++ show x
+padOut :: [Int] -> String
+padOut (x:xs)
+    = do
+        replicate (6 - length (show x)) '0' ++ show x
 
 stringToList :: String -> [Int]
 stringToList x
