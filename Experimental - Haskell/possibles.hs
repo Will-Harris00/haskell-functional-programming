@@ -9,7 +9,11 @@ prnt
 
 listInt :: [Int] -> [Int]
 listInt (x:xs)
-    = stringToList . padOut $ x : listInt xs
+    = magic x : listInt xs
+
+magic :: Int -> [Int]
+magic x
+    = stringToList . padOut $ x
 
 padOut :: Int -> String
 padOut x
