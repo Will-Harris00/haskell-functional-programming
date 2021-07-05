@@ -1,7 +1,10 @@
-countToN :: Int -> [(Int, Int, Int, Int, Int, Int)] -> [(Int, Int, Int, Int, Int, Int)]
-countToN x ys
-    | x /= 9999 = countToN (succ x) (ys ++ [listToTuple . stringToList . padOut . succ $ x])
-    | otherwise = ys
+countToN :: [(Int, Int, Int, Int, Int, Int)]
+countToN
+    = ([listToTuple . stringToList . padOut $ prnt])
+
+prnt :: [Int]
+prnt
+    = [1..999999]
 
 padOut :: Int -> String
 padOut x
@@ -17,4 +20,5 @@ listToTuple [x1, x2, x3, x4, x5, x6]
 
 main :: IO()
 main
-    = putStrLn (show (countToN (-1) []))
+    = putStrLn (show (countToN))
+    -- = putStrLn (show $ findSolutions $ possibles)
