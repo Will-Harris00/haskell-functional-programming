@@ -1,22 +1,22 @@
-countToN :: [String]
+countToN :: [Int]
 countToN
-    = listInt $ prnt
+    = listString . listInt $ prnt
 
 prnt :: [Int]
 prnt
-    = [1..999999]
-
-padOut :: Int -> String
-padOut x
-    = replicate (6 - length (show x)) '0' ++ show x
+    = [0..999999]
 
 listInt :: [Int] -> [String]
 listInt (x:xs)
     = padOut x : listInt xs
 
-stringToList :: String -> [Int]
-stringToList x
-    = map (read . (:"")) x :: [Int]
+padOut :: Int -> String
+padOut x
+    = replicate (6 - length (show x)) '0' ++ show x
+
+listString :: [String] -> [Int]
+listString
+    = map (read::String->Int)
 
 listToTuple :: [Int] -> (Int, Int, Int, Int, Int, Int)
 listToTuple [x1, x2, x3, x4, x5, x6]
